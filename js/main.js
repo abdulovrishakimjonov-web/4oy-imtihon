@@ -91,18 +91,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (desktop) desktop.textContent = total;
   }
 
-  function addToCart(product) {
-    const cart = getCart();
-    const pid = toId(product.id);
-    const existing = cart.find((p) => toId(p.id) === pid);
-    if (existing) {
-      return false;
-    } else {
-      cart.push({ ...product, id: pid, quantity: 1 });
-      saveCart(cart);
-      return true;
-    }
+ function addToCart(product) {
+  const cart = getCart();
+  const found = cart.find(item => item.id === product.id);
+
+  if (found) {
+    found.count += 1; // agar bor bo‘lsa count oshiradi
+  } else {
+    cart.push({ ...product, count: 1 }); // yangi mahsulot bo‘lsa count = 1
   }
+
+  saveCart(cart);
+}
+
 
   // ---- STARS (kept as-is) ----
   function fullStar() {
