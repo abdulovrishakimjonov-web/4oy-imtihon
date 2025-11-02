@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body class="scroll-smooth" id="top">
     <header class="mb-4">
         <div class="container">
             <div class="flex justify-between py-2  hidden md:flex">
@@ -478,9 +478,67 @@
 </section>
 <!-- section end -->
 
+<section
+        class="max-w-[1920px] w-[90%] md:w-[85%] lg:w-[78%] mx-auto mt-10"
+      >
+        <h2
+          class="font-medium text-[23px] tracking-[0.02em] text-black font-family mb-5"
+        >
+          Популярные
+        </h2>
+        <div
+          id="popular-products"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-6"
+        ></div>
+      </section>
 
-<section>
+      <section
+        class="max-w-[1920px] w-[90%] md:w-[85%] lg:w-[78%] mx-auto mt-10"
+      >
+        <h2
+          class="font-medium text-[23px] tracking-[0.02em] text-black font-family mb-5"
+        >
+          Бестселлеры
+        </h2>
+        <div
+          id="bestseller-products"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-6"
+        ></div>
+      </section>
 
-</section>
+
+      <section
+        class="max-w-[1920px] w-[90%] md:w-[85%] lg:w-[78%] mx-auto mt-10"
+      >
+        <h2
+          class="font-medium text-[23px] tracking-[0.02em] text-black font-family mb-5"
+        >
+          Новинки
+        </h2>
+        <div
+          id="new-products"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-6"
+        ></div>
+      </section>
+
+
+      <section
+        class="max-w-[1920px] w-[90%] md:w-[85%] lg:w-[78%] mx-auto mt-10"
+      >
+        <h2
+          class="font-medium text-[23px] tracking-[0.02em] text-black font-family mb-5"
+        >
+          Товары со скидкой
+        </h2>
+        <div
+          id="discount-products"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-6"
+        ></div>
+      </section>
+<script src="./js/main.js"></script>
+
+<a href="#top" class="fixed right-5 bottom-5 bg-blue-600 text-white px-3 py-2 rounded-full shadow-md hover:bg-blue-700 transition">
+  ↑
+</a>
 </body>
 </html>
