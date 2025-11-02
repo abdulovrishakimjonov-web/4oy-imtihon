@@ -163,11 +163,12 @@ document.addEventListener("DOMContentLoaded", () => {
             ${product.oldPrice ? `<span class="font-normal text-[13px] line-through text-gray-400 font-family">${product.oldPrice.toLocaleString()} сум</span>` : ""}
           </div>
           <button class="relative cursor-pointer" data-action="add-to-cart">
-            <img src="./images/Border.png" alt="">
+            <img src="./img/Border.svg" alt="">
           </button>
         </div>
       </div>
     `;
+    
 
     // favorite click
     const favBtn = card.querySelector('[data-action="favorite"]');
@@ -180,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cart = getCart();
     const isInCart = cart.some((p) => toId(p.id) === pid);
 
+  
     if (isInCart && cartBtn) {
       const circle = document.createElement("div");
       circle.innerHTML = `<i class="fa-solid fa-check"></i>`;
@@ -201,6 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return card;
   }
+  window.addEventListener("DOMContentLoaded", updateFavoritesCounter);
+
+
 
   // ---- RENDER BY TAGS ----
   function renderProductsByTags(products) {
@@ -276,3 +281,5 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCartCounter();
   closeMobileMenuOnLinkClick();
 });
+
+

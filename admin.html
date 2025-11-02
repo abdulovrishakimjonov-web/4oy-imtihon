@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Panel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<header class="bg-white shadow p-4 flex justify-between items-center">
+<h1 class="text-xl font-semibold">Admin Panel</h1>
+<button id="openAddModal" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">+ Qo'shish</button>
+</header>
+
+
+<main class="max-w-6xl mx-auto p-6">
+<div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+</main>
+
+
+<!-- Add Modal -->
+<div id="addModal" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center">
+<div class="bg-white p-6 rounded shadow w-80">
+<h2 class="text-lg font-semibold mb-4">Yangi Tovar Qo'shish</h2>
+<input id="addDescription" type="text" placeholder="Tovar nomi (description)" class="w-full border p-2 rounded mb-3">
+<input id="addPrice" type="number" placeholder="Narxi (price_uzs)" class="w-full border p-2 rounded mb-3">
+<input id="addImage" type="text" placeholder="Rasm URL (image_url)" class="w-full border p-2 rounded mb-3">
+<div class="mb-3 text-sm"><p class="mb-1">Taglar:</p><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="popular"> popular</label><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="new"> new</label><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="discount"> discount</label></div>
+<label class="flex items-center gap-2 mb-3 text-sm"><input id="addDiscount" type="checkbox"> Aksiyada</label>
+<label class="flex items-center gap-2 mb-4 text-sm"><input id="addStock" type="checkbox" checked> Omborda bor</label>
+<div class="flex justify-end gap-2">
+<button id="closeAddModal" class="px-3 py-1 border rounded">Bekor</button>
+<button id="saveProduct" class="px-3 py-1 bg-blue-600 text-white rounded">Saqlash</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
