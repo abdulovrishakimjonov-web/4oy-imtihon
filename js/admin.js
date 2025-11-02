@@ -1,57 +1,104 @@
+const API = "https://68fae18894ec96066023c657.mockapi.io/api/v2/products";
 
-const API = "https://68fae18894ec96066023c657.mockapi.io/api/v2/products"; // Bu yerga MockAPI link qo'yasiz
+const grid = document.getElementById("product-grid");
+const modal = document.getElementById("modal");
+const modalTitle = document.getElementById("modal-title");
+const form = document.getElementById("modal-form");
 
+let editId = null;
 
-const grid = document.getElementById("productGrid");
-const addModal = document.getElementById("addModal");
-document.getElementById("openAddModal").onclick = () => addModal.classList.remove("hidden");
-document.getElementById("closeAddModal").onclick = () => addModal.classList.add("hidden");
+// 🔥 Products Yuklash
+async function loadProducts() {
+  const res = await fetch(API);
+  const products = await res.json();
 
+  grid.innerHTML = products.map(p => `
+    <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-4 border border-gray-100 hover:-translate-y-1">
+      <div class="w-full h-40 bg-gray-100 rounded-lg overflow-hidden">
+        <img src="${p.image_url}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+      </div>
 
-async function fetchData() {
-const res = await fetch(API);
-const data = await res.json();
-renderProducts(data);
+      <h2 class="font-semibold text-lg mt-3 truncate">${p.title}</h2>
+      <p class="text-gray-600 text-sm mt-1">${Number(p.price_uzs).toLocaleString()} so‘m</p>
+      <p class="text-gray-500 text-xs line-clamp-2 mt-2">${p.description || "Tavsif mavjud emas"}</p>
+
+      <div class="flex justify-between items-center mt-4">
+        <button onclick="openModal('${p.id}', '${p.title}', '${p.price_uzs}', '${p.image_url}', \`${p.description}\`)" 
+          class="px-3 py-1.5 text-sm border-2 hover:bg-cyan-400  text-cyan-400 hover:text-white rounded-lg transition">
+        <i class="fa-solid fa-pen text-gray-800" style="color:;"></i> Tahrirlash
+        </button>
+
+        <button onclick="deleteProduct('${p.id}')"
+          class="px-3 py-1.5 text-sm border-2 hover:bg-slate-800 text-slate-800 font-bold hover:text-white rounded-lg transition">
+          🗑 O‘chirish
+        </button>
+      </div>
+    </div>
+  `).join("");
 }
 
+loadProducts();
 
-function renderProducts(products) {
-grid.innerHTML = "";
-products.forEach(item => {
-const card = document.createElement("div");
-card.className = "bg-white p-4 rounded shadow hover:-translate-y-1 hover:shadow-lg transition";
-card.innerHTML = `
-<img src="${item.image_url}" class="h-40 w-full object-cover rounded" />
-<h3 class="mt-3 font-semibold">${item.description}</h3>
-<p class="text-gray-600">${item.price_uzs} so'm</p>
-<div class="flex gap-2 mt-3">
-<button class="px-3 py-1 bg-green-600 text-white rounded">Edit</button>
-<button onclick="deleteProduct(${item.id})" class="px-3 py-1 bg-red-600 text-white rounded">Delete</button>
-</div>
-`;
-grid.appendChild(card);
+// 🔥 Modal ochish
+function openModal(id = null, title = "", price = "", image = "", desc = "") {
+  editId = id;
+  modalTitle.textContent = id ? "Mahsulotni tahrirlash" : "Yangi mahsulot qo‘shish";
+
+  form.title.value = title;
+  form.price_uzs.value = price;
+  form.image_url.value = image;
+  form.description.value = desc;
+
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+// 🔥 Modal yopish
+function closeModal() {
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+  form.reset();
+}
+
+// 🔥 Saqlash
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const product = {
+    title: form.title.value,
+    price_uzs: Number(form.price_uzs.value),
+    image_url: form.image_url.value,
+    description: form.description.value
+  };
+
+  if (editId) {
+    await fetch(`${API}/${editId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(product)
+    });
+  } else {
+    await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(product)
+    });
+  }
+
+  closeModal();
+  loadProducts();
 });
-}
 
-
+// 🔥 O‘chirish
 async function deleteProduct(id) {
-await fetch(`${API}/${id}`, { method: "DELETE" });
-fetchData();
+  if (confirm("Rostdan o‘chirmoqchimisiz?")) {
+    await fetch(`${API}/${id}`, { method: "DELETE" });
+    loadProducts();
+  }
 }
 
-
-document.getElementById("saveProduct").onclick = async () => {
-const newProduct = {
-name: document.getElementById("addName").value,
-price: document.getElementById("addPrice").value,
-image: document.getElementById("addImage").value
-};
-await fetch(API, {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify(newProduct)
-});
-addModal.classList.add("hidden");
-fetchData();
-};
-getProducts();
+// 🔥 Logout
+function logout() {
+  localStorage.removeItem("isAdmin");
+  window.location.href = "login.html";
+}

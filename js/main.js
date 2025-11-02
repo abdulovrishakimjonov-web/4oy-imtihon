@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateFavoritesCounter();
   }
 
+
   // ---- CART (unchanged logic but robustified) ----
   function getCart() {
     try {

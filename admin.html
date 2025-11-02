@@ -1,40 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Admin Panel</title>
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-<header class="bg-white shadow p-4 flex justify-between items-center">
-<h1 class="text-xl font-semibold">Admin Panel</h1>
-<button id="openAddModal" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">+ Qo'shish</button>
-</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+      tailwind.config = {
+        theme: { extend: {} },
+        plugins: [require("@tailwindcss/line-clamp")],
+      };
+    </script>
+  </head>
+  <body>
+    <div class="bg-white sticky z-50 top-0 left-0 shadow px-6 py-4 flex justify-between items-center">
+      <a href="./index.html"><h1 class="text-2xl text-slate-800 font-bold">Admin Panel</h1></a>
+      <a href="./index.html"><img src="./img/Link.svg" alt=""></a>
+      <a href="./index.html"><button
+        onclick="logout()"
+        class="border-2 hover:bg-slate-800 cursor-pointer hover:text-white text-slate-800 font-bold px-6 py-2 rounded"
+      >
+        Chiqish
+      </button></a>
+    </div>
 
+    <div class="max-w-7xl mx-auto py-10">
+      <div class="flex justify-end mb-6">
+        <button
+          onclick="openModal()"
+          class=" text-slate-800 cursor-pointer border-2 font-bold hover:bg-slate-800 hover:text-white  px-5 py-2 rounded-lg transition"
+        >
+          + Yangi Mahsulot Qo‘shish
+        </button>
+      </div>
+      <div
+        id="product-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4"
+      ></div>
+    </div>
+    <div
+      id="modal"
+      class="fixed inset-0 bg-slate-400 bg-opacity-50 hidden justify-center items-center z-50"
+    >
+      <div class="bg-slate-200 w-full max-w-md p-6 rounded-lg shadow-lg">
+        <h2 id="modal-title" class="text-lg font-semibold mb-4">
+          Yangi mahsulot
+        </h2>
 
-<main class="max-w-6xl mx-auto p-6">
-<div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
-</main>
+        <form id="modal-form" class="space-y-3">
+          <input
+            id="title"
+            placeholder="Nomi"
+            class="w-full p-2 border rounded"
+          />
+          <input
+            id="price_uzs"
+            type="number"
+            placeholder="Narxi (so‘m)"
+            class="w-full p-2 border rounded"
+          />
+          <input
+            id="image_url"
+            placeholder="Rasm URL"
+            class="w-full p-2 border rounded"
+          />
+          <textarea
+            id="description"
+            placeholder="Tavsifi"
+            class="w-full p-2 border rounded"
+          ></textarea>
 
+          <div class="flex justify-end gap-3 pt-3">
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="px-4 py-2 border-2 rounded cursor-pointer font-bold hover:bg-slate-300 bg-slate-200"
+            >
+              Bekor qilish
+            </button>
+            <button
+              class="px-4 py-2 border-2 text-white font-bold bg-slate-800 hover:bg-white hover:text-slate-800 cursor-pointer rounded "
+            >
+              Saqlash
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-<!-- Add Modal -->
-<div id="addModal" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center">
-<div class="bg-white p-6 rounded shadow w-80">
-<h2 class="text-lg font-semibold mb-4">Yangi Tovar Qo'shish</h2>
-<input id="addDescription" type="text" placeholder="Tovar nomi (description)" class="w-full border p-2 rounded mb-3">
-<input id="addPrice" type="number" placeholder="Narxi (price_uzs)" class="w-full border p-2 rounded mb-3">
-<input id="addImage" type="text" placeholder="Rasm URL (image_url)" class="w-full border p-2 rounded mb-3">
-<div class="mb-3 text-sm"><p class="mb-1">Taglar:</p><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="popular"> popular</label><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="new"> new</label><label class="flex items-center gap-2"><input type="checkbox" class="tag-option" value="discount"> discount</label></div>
-<label class="flex items-center gap-2 mb-3 text-sm"><input id="addDiscount" type="checkbox"> Aksiyada</label>
-<label class="flex items-center gap-2 mb-4 text-sm"><input id="addStock" type="checkbox" checked> Omborda bor</label>
-<div class="flex justify-end gap-2">
-<button id="closeAddModal" class="px-3 py-1 border rounded">Bekor</button>
-<button id="saveProduct" class="px-3 py-1 bg-blue-600 text-white rounded">Saqlash</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
+    <script src="./js/admin.js"></script>
+  </body>
 </html>
